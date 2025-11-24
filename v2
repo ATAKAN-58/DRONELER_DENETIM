@@ -1,0 +1,58 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string ucusGuvenligiKontrol(int dronelerin_yuk, int dronelerin_hizi, int dronelerin_yuksekligi) {
+    
+    int pilSeviyesi = 100 - (dronelerin_hizi / 10);
+    cout << "[Pil Seviyesi Hesaplandı]: %" << pilSeviyesi << endl;
+
+    if (dronelerin_yuk > 30) { 
+        return "Ağır yük, uçamaz!"; 
+    }
+    
+    if (pilSeviyesi <= 20) { 
+        return "Pil seviyesi düşük, uçuş güvensiz!"; 
+    }
+    
+    if (dronelerin_yuksekligi > 100 || dronelerin_hizi > 80) { 
+        return "Radar dışı, uçuş güvensiz!"; 
+    }
+    
+    return "Uçuş güvenli!";
+}
+
+int main() {
+    const int MAX_DRONE = 7;
+
+    string ucus_durumlari[MAX_DRONE]; 
+
+    int dronelerin_yuk [7]        {350,600,200,450,500,100,400};
+    int dronelerin_hizi[7]        {40,30,80,20,50,60,155};
+    int dronelerin_yuksekligi[7]  {50,70,150,10,210,180,90};
+
+    cout << "=== TÜM DRONE GÜVENLİK KONTROLÜ ===" << endl;
+
+    for (int i = 0; i < MAX_DRONE; ++i) {
+
+        int yuk        = dronelerin_yuk[i];
+        int hiz        = dronelerin_hizi[i];
+        int yukseklik  = dronelerin_yuksekligi[i];
+
+        cout << "\nDRONE " << i + 1 << " VERİLERİ:" << endl;
+        cout << "Yük         : " << yuk       << endl;
+        cout << "Hız         : " << hiz       << endl;
+        cout << "Yükseklik   : " << yukseklik << endl;
+
+        string sonuc = ucusGuvenligiKontrol(yuk, hiz, yukseklik);
+        ucus_durumlari[i] = sonuc;
+    }
+
+    cout << "\n=== SONUÇLAR ===" << endl;
+
+    for (int i = 0; i < MAX_DRONE; ++i) {
+        cout << "DRONE " << i + 1 << ": " << ucus_durumlari[i] << endl;
+    }
+
+    return 0;
